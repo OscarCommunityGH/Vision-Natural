@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raíz & Flor — Tés Medicinales</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde-oscuro: #1e3a2f;
+    --verde-musgo: #3d5c45;
+    --verde-salvia: #7a9e7e;
+    --verde-claro: #b5cba0;
+    --crema: #f5efe3;
+    --beige: #e8dcc8;
+    --tierra: #8b6f47;
+    --dorado: #c9a84c;
+    --blanco: #faf8f4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background-color: var(--blanco);
+    color: var(--verde-oscuro);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(122,158,126,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    color: var(--verde-oscuro);
+    text-decoration: none;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--verde-musgo);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  nav ul a:hover { color: var(--dorado); }
+
+  /* PORTADA */
+  #portada {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: var(--verde-oscuro);
+    overflow: hidden;
+  }
+
+  .portada-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 80% 20%, rgba(122,158,126,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 10% 80%, rgba(201,168,76,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(30,58,47,1) 0%, #0f2018 100%);
+  }
+
+  /* Decorative botanical SVG circles */
+  .botanical-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(122,158,126,0.15);
+    animation: rotate-slow linear infinite;
+  }
+
+  .ring-1 { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 60s; }
+  .ring-2 { width: 800px; height: 800px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 90s; animation-direction: reverse; border-color: rgba(201,168,76,0.08); }
+  .ring-3 { width: 1000px; height: 1000px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 120s; border-color: rgba(181,203,160,0.06); }
+
+  @keyframes rotate-slow {
+    from { transform: translate(-50%,-50%) rotate(0deg); }
+    to { transform: translate(-50%,-50%) rotate(360deg); }
+  }
+
+  .portada-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* LOGO */
+  .logo-container {
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo-svg {
+    width: 160px;
+    height: 160px;
+    filter: drop-shadow(0 0 30px rgba(201,168,76,0.3));
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .portada-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 1rem;
+    animation: fadeUp 1.2s 0.2s ease both;
+  }
+
+  .portada-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 400;
+    color: var(--crema);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    animation: fadeUp 1.2s 0.3s ease both;
+  }
+
+  .portada-titulo em {
+    font-style: italic;
+    color: var(--verde-salvia);
+  }
+
+  .portada-subtitulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--verde-claro);
+    margin-top: 1rem;
+    letter-spacing: 0.05em;
+    animation: fadeUp 1.2s 0.4s ease both;
+  }
+
+  .portada-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--dorado);
+    margin: 2rem auto;
+    animation: expandWidth 1s 0.6s ease both;
+  }
+
+  @keyframes expandWidth {
+    from { width: 0; opacity: 0; }
+    to { width: 60px; opacity: 1; }
+  }
+
+  .portada-tagline {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,239,227,0.5);
+    animation: fadeUp 1.2s 0.7s ease both;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(245,239,227,0.3);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    animation: fadeUp 1.2s 1s ease both;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; }
+
+  .section-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .section-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--verde-oscuro);
+    margin-bottom: 2rem;
+  }
+
+  .section-titulo em { color: var(--verde-salvia); font-style: italic; }
+
+  .gold-line {
+    width: 50px;
+    height: 2px;
+    background: var(--dorado);
+    margin-bottom: 2.5rem;
+  }
+
+  /* INTRODUCCIÓN */
+  #introduccion {
+    background: var(--blanco);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .intro-text p {
+    font-size: 1.25rem;
+    line-height: 1.85;
+    color: #4a5f50;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .intro-visual {
+    position: relative;
+    height: 500px;
+  }
+
+  .intro-card {
+    position: absolute;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--beige);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-grande {
+    width: 75%;
+    height: 80%;
+    right: 0;
+    top: 0;
+    background: linear-gradient(135deg, var(--verde-musgo), var(--verde-oscuro));
+  }
+
+  .card-chica {
+    width: 55%;
+    height: 55%;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--dorado), var(--tierra));
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .card-icon {
+    font-size: 5rem;
+    opacity: 0.4;
+  }
+
+  /* Propiedades chips */
+  .props-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .prop-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: var(--crema);
+    border: 1px solid rgba(122,158,126,0.25);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--verde-musgo);
+  }
+
+  .prop-chip span { font-size: 1.1rem; }
+
+  /* RECETARIO */
+  #recetario {
+    background: var(--crema);
+    padding: 7rem 4rem;
+  }
+
+  .recetario-header {
+    max-width: 1400px;
+    margin: 0 auto 4rem;
+  }
+
+  .recetas-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .receta-card {
+    background: var(--blanco);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .receta-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 70px rgba(30,58,47,0.12);
+  }
+
+  .receta-card:nth-child(4), .receta-card:nth-child(5) {
+    grid-column: span 1;
+  }
+
+  /* Make last row centered */
+  .recetas-grid-bottom {
+    max-width: 1400px;
+    margin: 1.5rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .receta-header {
+    padding: 2.5rem 2rem 1.5rem;
+    position: relative;
+  }
+
+  .receta-numero {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 700;
+    color: rgba(122,158,126,0.12);
+    position: absolute;
+    top: 0.5rem;
+    right: 1.5rem;
+    line-height: 1;
+  }
+
+  .receta-emoji {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .receta-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--verde-oscuro);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .receta-subtitulo {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--verde-salvia);
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .receta-body {
+    padding: 0 2rem 2rem;
+  }
+
+  .receta-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--beige);
+    margin-bottom: 1.5rem;
+  }
+
+  .receta-seccion-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+
+  .receta-lista {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .receta-lista li {
+    font-size: 0.95rem;
+    color: #5a7060;
+    padding: 0.3rem 0;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .receta-lista li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--verde-salvia);
+    font-size: 1.2rem;
+    line-height: 1.1;
+  }
+
+  .receta-preparacion {
+    font-size: 0.95rem;
+    color: #5a7060;
+    line-height: 1.7;
+  }
+
+  .receta-beneficio {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(122,158,126,0.08), rgba(181,203,160,0.12));
+    border-left: 2px solid var(--verde-salvia);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .receta-beneficio p {
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--verde-musgo);
+    line-height: 1.6;
+  }
+
+  .receta-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.3rem 0.9rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--verde-salvia);
+    color: var(--verde-salvia);
+    border-radius: 20px;
+  }
+
+  /* ACERCA DE */
+  #acerca {
+    background: var(--verde-oscuro);
+    color: var(--crema);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #acerca::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 60% at 90% 10%, rgba(201,168,76,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 10% 90%, rgba(122,158,126,0.15) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .acerca-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    position: relative;
+  }
+
+  #acerca .section-titulo { color: var(--crema); }
+
+  .acerca-text p {
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: rgba(245,239,227,0.75);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .valores-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .valor-item {
+    padding: 1.5rem;
+    border: 1px solid rgba(122,158,126,0.2);
+    border-radius: 4px;
+    background: rgba(61,92,69,0.2);
+    backdrop-filter: blur(4px);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .valor-item:hover {
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(61,92,69,0.35);
+  }
+
+  .valor-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+
+  .valor-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--crema);
+    margin-bottom: 0.4rem;
+  }
+
+  .valor-desc {
+    font-size: 0.9rem;
+    color: rgba(245,239,227,0.5);
+    line-height: 1.5;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+  }
+
+  /* CRÉDITOS */
+  #creditos {
+    background: var(--beige);
+    text-align: center;
+    padding: 6rem 4rem;
+  }
+
+  .creditos-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .creditos-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-style: italic;
+    color: var(--verde-oscuro);
+    margin-bottom: 0.5rem;
+  }
+
+  .creditos-tagline {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 3rem;
+  }
+
+  .creditos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 3rem 0;
+    text-align: left;
+  }
+
+  .credito-grupo h4 {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 0.8rem;
+  }
+
+  .credito-grupo p, .credito-grupo li {
+    font-size: 1rem;
+    color: var(--verde-musgo);
+    line-height: 1.8;
+    list-style: none;
+  }
+
+  .credito-grupo a {
+    color: var(--verde-musgo);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .credito-grupo a:hover { color: var(--dorado); }
+
+  .creditos-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(122,158,126,0.2);
+    margin: 2rem 0;
+  }
+
+  .creditos-footer {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: rgba(61,92,69,0.5);
+  }
+
+  /* FOOTER bar */
+  footer {
+    background: var(--verde-oscuro);
+    text-align: center;
+    padding: 1.5rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,239,227,0.3);
+    text-transform: uppercase;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.5rem; }
+    nav ul a { font-size: 0.7rem; }
+    section { padding: 5rem 1.5rem; }
+    #introduccion { grid-template-columns: 1fr; gap: 3rem; }
+    .intro-visual { height: 300px; }
+    .recetas-grid { grid-template-columns: 1fr; }
+    .recetas-grid-bottom { grid-template-columns: 1fr; }
+    .acerca-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .creditos-grid { grid-template-columns: 1fr; }
+    .props-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#portada" class="nav-logo">Los & Miopes</a>
+  <ul>
+    <li><a href="#introduccion">Introducción</a></li>
+    <li><a href="#recetario">Recetario</a></li>
+    <li><a href="#acerca">Acerca de</a></li>
+    <li><a href="#creditos">Créditos</a></li>
+  </ul>
+</nav>
+
+<!-- PORTADA -->
+<section id="portada">
+  <div class="portada-bg"></div>
+  <div class="botanical-ring ring-1"></div>
+  <div class="botanical-ring ring-2"></div>
+  <div class="botanical-ring ring-3"></div>
+
+  <div class="portada-content">
+    <div class="logo-container">
+      <!-- SVG LOGO botanico -->
+      <svg class="logo-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer circle -->
+        <circle cx="80" cy="80" r="74" fill="none" stroke="rgba(201,168,76,0.35)" stroke-width="1"/>
+        <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(122,158,126,0.25)" stroke-width="0.5"/>
+        <!-- Taza de té -->
+        <path d="M52 95 Q50 105 58 110 L102 110 Q110 105 108 95 Z" fill="none" stroke="#c9a84c" stroke-width="1.8"/>
+        <path d="M52 95 L58 75 L102 75 L108 95 Z" fill="none" stroke="#c9a84c" stroke-width="1.8"/>
+        <!-- Asa -->
+        <path d="M108 82 Q122 82 122 90 Q122 98 108 98" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+        <!-- Vapor / planta emergente -->
+        <path d="M68 75 Q66 65 70 58 Q74 51 72 44" fill="none" stroke="#7a9e7e" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M80 75 Q78 62 82 52 Q86 42 84 32" fill="none" stroke="#7a9e7e" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M92 75 Q90 65 94 58 Q98 51 96 44" fill="none" stroke="#7a9e7e" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Hojitas en el vapor -->
+        <ellipse cx="70" cy="52" rx="6" ry="4" fill="rgba(122,158,126,0.6)" transform="rotate(-30,70,52)"/>
+        <ellipse cx="84" cy="38" rx="7" ry="4.5" fill="rgba(122,158,126,0.6)" transform="rotate(10,84,38)"/>
+        <ellipse cx="96" cy="48" rx="5.5" ry="3.5" fill="rgba(122,158,126,0.6)" transform="rotate(25,96,48)"/>
+        <!-- Pequeñas ramitas -->
+        <path d="M70 52 Q64 48 62 43" fill="none" stroke="#7a9e7e" stroke-width="1" stroke-linecap="round"/>
+        <path d="M84 38 Q90 33 88 28" fill="none" stroke="#7a9e7e" stroke-width="1" stroke-linecap="round"/>
+        <!-- Platito -->
+        <ellipse cx="80" cy="112" rx="36" ry="5" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+        <!-- Texto circular decorativo -->
+        <path id="circleText" d="M80,80 m-60,0 a60,60 0 1,1 120,0 a60,60 0 1,1 -120,0" fill="none"/>
+        <text font-family="Lato, sans-serif" font-size="7" font-weight="300" letter-spacing="4" fill="rgba(201,168,76,0.6)">
+          <textPath href="#circleText" startOffset="5%">✦ TÉS MEDICINALES ✦ VISIÓN &amp; NATURAL ✦ SALUD NATURAL ✦</textPath>
+        </text>
+      </svg>
+    </div>
+
+    <p class="portada-eyebrow">Plantas que sanan · Tradición que perdura</p>
+    <h1 class="portada-titulo">Visión<br><em>&amp; Natural</em></h1>
+    <p class="portada-subtitulo">Tés medicinales naturales</p>
+    <div class="portada-divider"></div>
+    <p class="portada-tagline">La sabiduría botánica al alcance de todos</p>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Descubrir</span>
+  </div>
+</section>
+
+<!-- INTRODUCCIÓN -->
+<div style="padding: 7rem 4rem; max-width: 100%; background: var(--blanco);" id="introduccion">
+  <div style="max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;">
+    <div class="intro-text">
+      <span class="section-eyebrow">El origen de la tradición</span>
+      <h2 class="section-titulo">La sabiduría<br>de las <em>plantas</em></h2>
+      <div class="gold-line"></div>
+      <p>Desde tiempos ancestrales, las plantas medicinales han sido el tesoro más preciado de la humanidad. Cada hoja, raíz y flor encierra en sí misma un universo de compuestos activos capaces de restablecer el equilibrio natural del cuerpo y la mente.</p>
+      <p>Los tés medicinales representan una de las formas más puras y accesibles de aprovechar el poder curativo de la naturaleza. A través de la infusión, el agua libera los aceites esenciales, flavonoides, terpenos y principios activos que cada planta guarda celosamente.</p>
+      <p>Este recetario reúne cinco preparaciones de la herbolaria tradicional, rescatadas de generaciones que encontraron en la tierra su mejor farmacia.</p>
+
+      <div class="props-grid">
+        <div class="prop-chip"><span>🌿</span> 100% Natural</div>
+        <div class="prop-chip"><span>⚗️</span> Ancestral</div>
+        <div class="prop-chip"><span>💚</span> Sin químicos</div>
+        <div class="prop-chip"><span>🌱</span> Sostenible</div>
+        <div class="prop-chip"><span>🍵</span> Fácil de preparar</div>
+        <div class="prop-chip"><span>✨</span> Holístico</div>
+      </div>
+    </div>
+
+    <div class="intro-visual">
+      <div class="intro-card card-grande">
+        <div style="text-align:center; padding: 2rem;">
+          <svg viewBox="0 0 120 140" width="120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Planta -->
+            <path d="M60 130 L60 60" stroke="rgba(181,203,160,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="60" cy="80" rx="22" ry="13" fill="rgba(122,158,126,0.3)" transform="rotate(-20,60,80)"/>
+            <ellipse cx="60" cy="70" rx="18" ry="10" fill="rgba(122,158,126,0.3)" transform="rotate(15,60,70)"/>
+            <ellipse cx="60" cy="60" rx="20" ry="12" fill="rgba(122,158,126,0.4)"/>
+            <ellipse cx="45" cy="75" rx="16" ry="9" fill="rgba(181,203,160,0.35)" transform="rotate(-30,45,75)"/>
+            <ellipse cx="75" cy="78" rx="16" ry="9" fill="rgba(181,203,160,0.35)" transform="rotate(25,75,78)"/>
+            <!-- Flores -->
+            <circle cx="60" cy="45" r="8" fill="rgba(201,168,76,0.4)"/>
+            <circle cx="60" cy="45" r="4" fill="rgba(201,168,76,0.6)"/>
+            <circle cx="45" cy="55" r="6" fill="rgba(201,168,76,0.3)"/>
+            <circle cx="75" cy="52" r="7" fill="rgba(201,168,76,0.35)"/>
+          </svg>
+          <p style="color:rgba(181,203,160,0.6); font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic; margin-top:1rem;">Medicina verde</p>
+        </div>
+      </div>
+      <div class="intro-card card-chica">
+        <div style="text-align:center; padding:1.5rem;">
+          <svg viewBox="0 0 100 100" width="80" xmlns="http://www.w3.org/2000/svg">
+            <!-- Taza estilizada -->
+            <path d="M20 60 Q18 75 30 80 L70 80 Q82 75 80 60 Z" fill="rgba(245,239,227,0.3)" stroke="rgba(245,239,227,0.6)" stroke-width="1.5"/>
+            <path d="M20 60 L25 40 L75 40 L80 60 Z" fill="rgba(245,239,227,0.2)" stroke="rgba(245,239,227,0.6)" stroke-width="1.5"/>
+            <path d="M80 48 Q92 48 92 56 Q92 64 80 64" fill="none" stroke="rgba(245,239,227,0.5)" stroke-width="1.5"/>
+            <path d="M35 40 Q34 30 37 24" stroke="rgba(245,239,227,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M50 40 Q49 28 52 20" stroke="rgba(245,239,227,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M65 40 Q64 30 67 24" stroke="rgba(245,239,227,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="50" cy="82" rx="28" ry="4" fill="none" stroke="rgba(245,239,227,0.4)" stroke-width="1.2"/>
+          </svg>
+          <p style="color:rgba(245,239,227,0.7); font-family:'Cormorant Garamond',serif; font-size:0.9rem; font-style:italic; margin-top:0.5rem;">Armonía en cada sorbo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RECETARIO -->
+<section id="recetario" style="padding: 7rem 4rem; background: var(--crema);">
+  <div class="recetario-header">
+    <span class="section-eyebrow">Herbolaria tradicional</span>
+    <h2 class="section-titulo">Nuestro <em>Recetario</em></h2>
+    <div class="gold-line"></div>
+    <p style="font-size:1.15rem; color:#5a7060; max-width:600px; line-height:1.8; font-weight:300;">Cinco tés medicinales preparados con ingredientes naturales, siguiendo sabidurías transmitidas de generación en generación.</p>
+  </div>
+
+  <div class="recetas-grid">
+    <!-- RECETA 1 -->
+    <div class="receta-card">
+      <div class="receta-header">
+        <span class="receta-numero">01</span>
+        <span class="receta-emoji">🌻</span>
+        <h3 class="receta-nombre">Té de Árnica</h3>
+        <p class="receta-subtitulo">Conocida por su potente fuerza analgésica, es la aliada ideal para procesos de recuperación física.</p>
+      </div>
+      <div class="receta-body">
+        <div class="receta-divider"></div>
+        <span class="receta-seccion-title">Ingredientes</span>
+        <ul class="receta-lista">
+          <li>Flor de Árnica: 1 pieza pequeña (preferentemente seca).</li>
+          <li>Agua: 1 taza (250 ml).</li>
+          <li>Azúcar: 1 a 2 cucharadas</li>
+          <li>Opcional: Una gasa limpia (si se decide usar de forma tópica para desinflamar golpes).</li>
+        </ul>
+        <span class="receta-seccion-title">Preparación</span>
+        <p class="receta-preparacion">Hervir una taza de agua, apagar el fuego y añadir una flor pequeña de árnica. Reposar por 5 minutos y colar.</p>
+        <div class="receta-beneficio">
+          <p>✨ Es una planta de rescate con potentes propiedades analgésicas y antiinflamatorias.</p>
+        </div>
+        <span class="receta-tag">Golpes · Relajante</span>
+      </div>
+    </div>
+
+    <!-- RECETA 2 -->
+    <div class="receta-card">
+      <div class="receta-header">
+        <span class="receta-numero">02</span>
+        <span class="receta-emoji">🌼</span>
+        <h3 class="receta-nombre">Té de Manzanilla y Jengibre</h3>
+        <p class="receta-subtitulo">Una mezcla equilibrada que fusiona la suavidad milenaria de la manzanilla con la energía vibrante del jengibre.</p>
+      </div>
+      <div class="receta-body">
+        <div class="receta-divider"></div>
+        <span class="receta-seccion-title">Ingredientes</span>
+        <ul class="receta-lista">
+          <li>Flores de Manzanilla: 1 cucharada sopera de flores secas o un sobrecito.</li>
+          <li>Jengibre: 1 trozo pequeño (aproximadamente 2 cm) de raíz fresca, pelada y rebanada.</li>
+          <li>Agua: 1 taza (250 ml).</li>
+          <li>Endulzante: Miel de abeja al gusto (opcional).</li>
+        </ul>
+        <span class="receta-seccion-title">Preparación</span>
+        <p class="receta-preparacion">Infusionar una cucharada de flores de manzanilla y un trozo pequeño (2 cm) de jengibre fresco en agua caliente por 8 minutos.</p>
+        <div class="receta-beneficio">
+          <p>✨ Esta infusión no solo reconforta el sistema digestivo, sino que actúa como un abrazo cálido.</p>
+        </div>
+        <span class="receta-tag">Antiinflamatorio · Digestivo</span>
+      </div>
+    </div>
+
+    <!-- RECETA 3 -->
+    <div class="receta-card">
+      <div class="receta-header">
+        <span class="receta-numero">03</span>
+        <span class="receta-emoji">🌿</span>
+        <h3 class="receta-nombre">Té de Hierba del Sapo</h3>
+        <p class="receta-subtitulo">Directo de la riqueza botánica de nuestra región, esta infusión representa la medicina funcional aplicada a la salud metabólica.</p>
+      </div>
+      <div class="receta-body">
+        <div class="receta-divider"></div>
+        <span class="receta-seccion-title">Ingredientes</span>
+        <ul class="receta-lista">
+          <li>Hierba del Sapo: 1 cucharadita de la planta seca y triturada.</li>
+          <li>Agua: 1 taza (250 ml).</li>
+          <li>1 cucharadita de azúcar mascabado</li>
+          <li>Nota: Se puede encontrar fácilmente en los mercados locales de Tlaxcala</li>
+        </ul>
+        <span class="receta-seccion-title">Preparación</span>
+        <p class="receta-preparacion">Utilizar una cucharadita de la planta seca por cada taza de agua. Hervir durante 3 a 5 minutos, dejar reposar y colar.</p>
+        <div class="receta-beneficio">
+          <p>✨ Es una bebida de sabor profundo y carácter noble, valorada ancestralmente por su capacidad para purificar el organismo y equilibrar los niveles vitales de forma natural.</p>
+        </div>
+        <span class="receta-tag">Digestivo · Relajante</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="recetas-grid-bottom">
+    <!-- RECETA 4 -->
+    <div class="receta-card">
+      <div class="receta-header">
+        <span class="receta-numero">04</span>
+        <span class="receta-emoji">🌺</span>
+        <h3 class="receta-nombre">Té de 3 Flores</h3>
+        <p class="receta-subtitulo">Inspirada en los jardines y campos de nuestro estado, esta receta combina el gordolobo, la buganvilia y la manzanilla para crear un escudo protector para las vías respiratorias.</p>
+      </div>
+      <div class="receta-body">
+        <div class="receta-divider"></div>
+        <span class="receta-seccion-title">Ingredientes</span>
+        <ul class="receta-lista">
+          <li>Buganvilias: 3 a 5 flores de color intenso (lavadas y sin el centro pequeño).</li>
+          <li>Gordolobo: 1 pizca de la planta seca.</li>
+          <li>Manzanilla: 1 pizca de flores secas para suavizar el sabor.</li>
+          <li>Agua: 1 taza (250 ml).</li>
+          <li>Complemento: Jugo de medio limón y miel de abeja local.</li>
+        </ul>
+        <span class="receta-seccion-title">Preparación</span>
+        <p class="receta-preparacion">HHervir agua con 3 flores de buganvilia (lavadas), una pizca de gordolobo y una pizca de manzanilla por 5 minutos. Endulzar preferentemente con miel de abeja local.</p>
+        <div class="receta-beneficio">
+          <p>✨ Es una mezcla aromática y visualmente hermosa que rescata el uso tradicional de las flores para suavizar la garganta y facilitar el respiro.</p>
+        </div>
+        <span class="receta-tag">Respiratorio · Digestivo</span>
+      </div>
+    </div>
+
+    <!-- RECETA 5 -->
+    <div class="receta-card">
+      <div class="receta-header">
+        <span class="receta-numero">05</span>
+        <span class="receta-emoji">🍋</span>
+        <h3 class="receta-nombre">Té de Canela y Limón</h3>
+        <p class="receta-subtitulo">Más que un té, es un tónico revitalizante que combina especias cálidas con la frescura cítrica.</p>
+      </div>
+      <div class="receta-body">
+        <div class="receta-divider"></div>
+        <span class="receta-seccion-title">Ingredientes</span>
+        <ul class="receta-lista">
+          <li>Canela: 1 vara de canela entera (preferentemente de buena calidad).</li>
+          <li>Limón: 1 pieza de limón fresco (jugo y una rodaja para decorar).</li>
+          <li>Agua: 2 tazas (500 ml, ya que la canela rinde más).</li>
+          <li>Endulzante:1 cucharadita de azúcar</li>
+        </ul>
+        <span class="receta-seccion-title">Preparación</span>
+        <p class="receta-preparacion">Hervir una vara de canela en medio litro de agua por 10 minutos. Al servir, añadir el jugo de un limón fresco.</p>
+        <div class="receta-beneficio">
+          <p>✨ Ideal para esos días de fatiga o frío, esta receta es un recordatorio de cómo ingredientes sencillos de nuestra cocina.</p>
+        </div>
+        <span class="receta-tag">Escalofríos · Fatiga</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACERCA DE -->
+<section id="acerca">
+  <div class="acerca-inner">
+    <div class="acerca-text">
+      <span class="section-eyebrow" style="color: var(--dorado);">Nuestra filosofía</span>
+      <h2 class="section-titulo">Acerca <em style="color:var(--verde-salvia);">de</em><br>Visión & Natural</h2>
+      <div class="gold-line"></div>
+      <p>Visión Natural nació del profundo respeto por la sabiduría botánica acumulada durante siglos por los pueblos originarios de México y el mundo. Somos un proyecto editorial dedicado a preservar, documentar y difundir el conocimiento de las plantas medicinales en Tlaxcala.</p>
+      <p>Creemos que la salud es un equilibrio entre cuerpo, mente y naturaleza. Nuestro recetario no pretende reemplazar la medicina convencional, sino ser un puente hacia la prevención, el bienestar cotidiano y la reconexión con la tierra.</p>
+      <p>Cada receta ha sido cuidadosamente investigada, consultando fuentes de la herbolaria tradicional mexicana y evidencia científica contemporánea que avala las propiedades de estas plantas.</p>
+    </div>
+
+    <div class="valores-grid">
+      <div class="valor-item">
+        <span class="valor-icon">🌱</span>
+        <div class="valor-nombre">Tradición</div>
+        <div class="valor-desc">Honramos el conocimiento ancestral de comunidades indígenas y herbolarias.</div>
+      </div>
+      <div class="valor-item">
+        <span class="valor-icon">🔬</span>
+        <div class="valor-nombre">Ciencia</div>
+        <div class="valor-desc">Respaldamos cada receta con investigación botánica y fitoquímica actualizada.</div>
+      </div>
+      <div class="valor-item">
+        <span class="valor-icon">♻️</span>
+        <div class="valor-nombre">Sostenibilidad</div>
+        <div class="valor-desc">Promovemos la recolección responsable y el cultivo orgánico de plantas.</div>
+      </div>
+      <div class="valor-item">
+        <span class="valor-icon">🤝</span>
+        <div class="valor-nombre">Comunidad</div>
+        <div class="valor-desc">Conectamos a cultivadores, herbolarios y consumidores en un ecosistema justo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRÉDITOS -->
+<section id="creditos">
+  <div class="creditos-inner">
+    <div class="creditos-logo">Visión & Natural</div>
+    <div class="creditos-tagline">Tés Medicinales · Herbolaria Tradicional</div>
+
+    <div class="creditos-grid">
+      <div class="credito-grupo">
+        <h4>Autoría & Investigación</h4>
+        <ul>
+          <li>Proyecto editorial independiente: </li>
+          <li>Los Miopes®</li>
+          <li>Colaborador:</li>
+          <li>Centro Educativo de Bachillerato Estatal No.04 Sta. Anita Huiloac</li>
+        </ul>
+      </div>
+      <div class="credito-grupo">
+        <h4>Fuentes Consultadas</h4>
+        <ul>
+          <li>Secretaría de Medio Ambiente (Tlaxcala).</li>
+          <li>UNAM — Jardín Botánico</li>
+          <li>Biblioteca Digital de la Medicina Tradicional Mexicana (UNAM).
+          <li>Gobierno del Estado de Tlaxcala.</li>
+        </ul>
+      </div>
+      <div class="credito-grupo">
+        <h4>Tecnología</h4>
+        <ul>
+          <li>Tipografía: Google Fonts</li>
+          <li>Playfair Display & Cormorant Garamond</li>
+          <li>Diseño web: HTML · CSS · SVG</li>
+          <li>Hecho por Oscar Lozano</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="creditos-divider"></div>
+
+    <div style="background: rgba(122,158,126,0.08); border: 1px solid rgba(122,158,126,0.2); border-radius: 4px; padding: 1.5rem; margin-bottom: 2rem;">
+      <p style="font-size: 0.9rem; color: var(--verde-musgo); line-height: 1.8; font-style: italic;">
+        ⚠️ <strong>Aviso importante:</strong> La información contenida en este recetario tiene fines educativos y culturales únicamente. 
+        Cada receta tiene sus advertencias. No sustituye el diagnóstico ni el tratamiento médico profesional. Consulte a un médico o especialista en fitoterapia antes de iniciar cualquier tratamiento herbal, especialmente si se encuentra bajo medicación o padece enfermedades crónicas.
+      </p>
+    </div>
+
+    <p class="creditos-footer">© 2026 Visión & Natural · Todos los derechos reservados · Hecho por Los Miopes®</p>
+  </div>
+</section>
+
+<footer>
+  Visión & Natural · Tés Medicinales · La naturaleza es nuestra farmacia más antigua
+</footer>
+
+<script>
+  // Intersection Observer para animaciones al hacer scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.receta-card, .valor-item, .prop-chip').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  // Nav active state
+  const sections = document.querySelectorAll('section, #introduccion');
+  const navLinks = document.querySelectorAll('nav ul a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    document.querySelectorAll('[id]').forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === '#' + current ? 'var(--dorado)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
